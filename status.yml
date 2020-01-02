@@ -1,0 +1,19 @@
+---
+- name: Get Status
+  hosts: nube
+  gather_facts: no
+  # debugger: always
+
+  vars:
+    origen: "MASTER"
+    url: "facebook.com"
+    version: "v{{ ver }}"
+    cfg: "{{ hostvars[origen].config }}"
+
+  tasks:
+    - raw: /interface l2tp-server print terse
+      register: response
+
+    - debug: var=response
+    - debug: msg="{{ response.stdout_lines | tojson }}"
+    - debug: msg="{{ response.stdout | parse_cli('filter.yml') }}"

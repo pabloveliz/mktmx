@@ -1,0 +1,30 @@
+---
+- name: Initialize Master
+  hosts: nube
+  gather_facts: no
+  # debugger: always
+
+  vars:
+    origen: "MASTER"
+    url: "facebook.com"
+    version: "v{{ ver }}"
+    master: "{{ hostvars[origen].config }}"
+
+  # - name: "Grant full-access"
+  #   scp -i ~/.ssh/centregy.pem mktmx mktmx.pub user@$MASTER:
+  #   ssh -i ~/.ssh/centregy.pem user@$MASTER
+  #   /user ssh-keys private import user=user private-key-file=mktmx public-key-file=mktmx.pub passphrase=""
+  tasks:
+    - name: Prepare OAM
+      raw: "{{ item }}"
+      with_items:
+        - /interface bridge add name=loopback0
+        - /ip address add address={{ master.oam }}/24 comment=MANAGEMENT interface=loopback0
+        - /interface l2tp-server server set authentication=mschap2 enabled=yes ipsec-secret=ipsec123 max-sessions=200 use-ipsec=yes
+        - /ip firewall filter add action=accept chain=input dst-port=1701,500,4500 protocol=udp
+        - /ip firewall filter add action=accept chain=input protocol=ipsec-esp
+      register: response
+
+    - debug: var=response
+#  - debug: msg="{{ response.stdout_lines | tojson }}"
+#  - debug: msg="{{ response.stdout | parse_cli('filter.yml') }}"

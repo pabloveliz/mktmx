@@ -1,0 +1,31 @@
+---
+- name: Initialize Site
+  hosts: nube
+  gather_facts: no
+  # debugger: always
+
+  vars:
+    origen: "MASTER"
+    sitio: "AZUL"
+    master: "{{ hostvars[origen].config }}"
+    x: "{{ hostvars[sitio].config }}"
+
+  # - name: "Grant full-access"
+  #   scp -i ~/.ssh/centregy.pem mktmx mktmx.pub user@$MASTER:
+  #   ssh -i ~/.ssh/centregy.pem user@$MASTER
+  #   /user ssh-keys private import user=user private-key-file=mktmx public-key-file=mktmx.pub passphrase=""
+
+  tasks:
+    - raw: "{{ item }}"
+      with_items:
+        - /ppp profile add local-address={{ x.oam0 }} name={{ x.name }}-MGMT remote-address={{ x.oam1 }}}
+        - /ppp secret add name={{ x.name }}-MGMT password={{ x.name }}-MGMT profile={{ x.name }}-MGMT service=l2tp routes={{ x.oam }}/32
+        - /system ssh {{ x.oam }} user=user command="/ip dhcp-client add comment=defconf dhcp-options=hostname,clientid disabled=no interface=ether1"
+        - /system ssh {{ x.oam }} user=user command="/interface bridge add name=loopback0"
+        - /system ssh {{ x.oam }} user=user command="/ip address add address={{ x.oam }}/24 comment=MANAGEMENT interface=loopback0"
+        - /system ssh {{ x.oam }} user=user command="/interface l2tp-client add allow=mschap2 connect-to={{ master.public }} disabled=no name=L2TP-MGMT-NEW password={{ x.name }}-MGMT user={{ x.name }}-MGMT use-ipsec=yes ipsec-secret=ipsec123 allow-fast-path=no add-default-route=no"
+        - /system ssh {{ x.oam }} user=user command="/ip firewall filter add action=accept chain=input dst-port=1701,500,4500 protocol=udp add action=accept chain=input protocol=ipsec-esp"
+        - /system ssh {{ x.oam }} user=user command="/ip route add dst-address={{ master.oam }}/24 gateway=L2TP-MGMT-NEW comment=RUTA_ESTATICA_A_L2TP-SERVER"
+      register: response
+
+    - debug: var=response

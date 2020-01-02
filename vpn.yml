@@ -1,0 +1,33 @@
+---
+- name: Concentrador - Site
+  hosts: nube
+  gather_facts: no
+
+  vars:
+    origen: "MASTER"
+    sitio: "AZUL"
+    otro: "VERDE"
+    master: "{{ hostvars[origen].config }}"
+    a: "{{ hostvars[sitio].config }}"
+    b: "{{ hostvars[otro].config }}"
+
+  tasks:
+    - raw: "{{ item }}"
+      with_items:
+        # Concentrador-A
+        ## L2TP
+        - /ppp profile add local-address={{ a.srv0 }} name={{ a.name }}-SERV remote-address={{ a.srv1 }}
+        - /ppp secret add name=12345 password=12345 profile={{ a.name }}-SERV service=l2tp
+        ## INTERCONEXION L3
+        - /ip route add distance=1 dst-address={{ a.l2net }}/24 gateway={{ a.srv1 }}
+        # Sitio-A
+        ## L2TP
+        - /system ssh {{ a.oam }} user=user command="/interface l2tp-client add allow=mschap2 connect-to={{ master.public }} disabled=no name=L2TP-CLIENT-SERV password=12345 user=12345 use-ipsec=yes ipsec-secret=ipsec123 allow-fast-path=no add-default-route=no"
+        ## INTERCONEXION L3
+        - /system ssh {{ a.oam }} user=user command="/interface bridge add name=Loopback1-L3"
+        - /system ssh {{ a.oam }} user=user command="/ip address add address={{ a.l3br }}/24 interface=Loopback1-L3 network={{ a.l2net }}"
+        - /system ssh {{ a.oam }} user=user command="/interface bridge port add bridge=Loopback1-L3 interface=ether3"
+        - /system ssh {{ a.oam }} user=user command="/ip route add distance=1 dst-address={{ b.l2net }}/24 gateway={{ a.srv0 }}"
+      register: response
+
+    - debug: var=response
