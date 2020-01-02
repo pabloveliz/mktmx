@@ -1,0 +1,24 @@
+ansible_user=admin
+ansible_password=centregy
+ansible_host=1.0.0.4
+config:
+  id: 4
+  name: MK-MINI
+  public: 0.0.0.0
+  model: null
+  ports: 1
+  oam: 10.255.1.4
+  oam0: 10.252.1.6
+  oam1: 10.252.1.7
+  srv0: 10.252.2.6
+  srv1: 10.252.2.7
+  eip: 504
+  breip: 10.100.1.4
+  pool: 10.100.40.11-10.100.40.254
+  br: 10.100.40.1
+  net: 10.100.40.0
+  ssidpool: 10.200.40.11-10.200.40.254
+  ssidbr: 10.200.40.1
+  l3pool: 10.100.140.11-10.100.140.254
+  l3br: 10.100.140.1
+  l2net: 10.100.140.0

@@ -1,0 +1,24 @@
+ansible_user=admin
+ansible_password=centregy
+ansible_host=1.0.0.1
+config:
+  id: 1
+  name: MK-NEGRO
+  public: 0.0.0.0
+  model: null
+  ports: 1
+  oam: 10.255.1.1
+  oam0: 10.252.1.0
+  oam1: 10.252.1.1
+  srv0: 10.252.2.0
+  srv1: 10.252.2.1
+  eip: 501
+  breip: 10.100.1.1
+  pool: 10.100.10.11-10.100.10.254
+  br: 10.100.10.1
+  net: 10.100.10.0
+  ssidpool: 10.200.10.11-10.200.10.254
+  ssidbr: 10.200.10.1
+  l3pool: 10.100.110.11-10.100.110.254
+  l3br: 10.100.110.1
+  l2net: 10.100.110.0

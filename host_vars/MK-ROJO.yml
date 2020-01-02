@@ -1,0 +1,24 @@
+ansible_user=admin
+ansible_password=centregy
+ansible_host=1.0.0.2
+config:
+  id: 2
+  name: MK-ROJO
+  public: 0.0.0.0
+  model: null
+  ports: 1
+  oam: 10.255.1.2
+  oam0: 10.252.1.2
+  oam1: 10.252.1.3
+  srv0: 10.252.2.2
+  srv1: 10.252.2.3
+  eip: 502
+  breip: 10.100.1.2
+  pool: 10.100.20.11-10.100.20.254
+  br: 10.100.20.1
+  net: 10.100.20.0
+  ssidpool: 10.200.20.11-10.200.20.254
+  ssidbr: 10.200.20.1
+  l3pool: 10.100.120.11-10.100.120.254
+  l3br: 10.100.120.1
+  l2net: 10.100.120.0

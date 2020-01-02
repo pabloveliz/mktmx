@@ -1,0 +1,24 @@
+ansible_user: admin
+ansible_password: centregy
+ansible_host: 18.216.30.227
+config:
+  id: 5
+  name: AZUL
+  public: 18.216.30.227
+  model: null
+  ports: 1
+  oam: 10.255.1.5
+  oam0: 10.252.1.8
+  oam1: 10.252.1.9
+  srv0: 10.252.2.8
+  srv1: 10.252.2.9
+  eip: 505
+  breip: 10.100.1.5
+  pool: 10.100.50.11-10.100.50.254
+  br: 10.100.50.1
+  net: 10.100.50.0
+  ssidpool: 10.200.50.11-10.200.50.254
+  ssidbr: 10.200.50.1
+  l3pool: 10.100.150.11-10.100.150.254
+  l3br: 10.100.150.1
+  l2net: 10.100.150.0

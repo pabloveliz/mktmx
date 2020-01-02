@@ -1,0 +1,25 @@
+ansible_host: 13.59.97.187
+ansible_user: user
+#ansible_password: centregy
+ansible_ssh_private_key_file: mktmx
+config:
+  id: 100
+  name: MASTER
+  public: 13.59.97.187
+  model: null
+  ports: 1
+  oam: 10.255.1.100
+  oam0: ?.?.?.?
+  oam1: ?.?.?.?
+  srv0: ?.?.?.?
+  srv1: ?.?.?.?
+  eip: "?"
+  breip: 10.100.1.100
+  pool: 10.100.1.100-10.100.1.254
+  br: ?.?.?.?
+  net: 10.100.1.0
+  ssidpool: ?.?.?.?-?.?.?.?
+  ssidbr: ?.?.?.?
+  l3pool: ?.?.?.?-?.?.?.?
+  l3br: ?.?.?.?
+  l2net: ?.?.?.?

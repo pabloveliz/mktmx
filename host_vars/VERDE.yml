@@ -1,0 +1,24 @@
+ansible_user: admin
+ansible_password: centregy
+ansible_host: 18.216.12.127
+config:
+  id: 6
+  name: VERDE
+  public: 18.216.12.127
+  model: null
+  ports: 1
+  oam: 10.255.1.6
+  oam0: 10.252.1.10
+  oam1: 10.252.1.11
+  srv0: 10.252.2.10
+  srv1: 10.252.2.11
+  eip: 506
+  breip: 10.100.1.6
+  pool: 10.100.60.11-10.100.60.254
+  br: 10.100.60.1
+  net: 10.100.60.0
+  ssidpool: 10.200.60.11-10.200.60.254
+  ssidbr: 10.200.60.1
+  l3pool: 10.100.160.11-10.100.160.254
+  l3br: 10.100.160.1
+  l2net: 10.100.160.0
