@@ -1,0 +1,17 @@
+# 0  DR name=<l2tp-MKMETAL-IKEv2-TEST> user=MKMETAL-IKEv2-TEST mtu=1450 mru=1450 client-address=187.190.154.90 uptime=8m27s encoding=""
+---
+vars:
+  vlan:
+    key: "{{ item.id }}"
+    values:
+      id: "{{ item.id }}"
+      name: "{{ item.name }}"
+      #enabled: "{{ item.state != 'act/lshut' }}"
+      #state: "{{ item.state }}"
+
+keys:
+  vlans:
+    value: "{{ vlan }}"
+    items: "^(?P<id>..)\\s.+\\suser=(?P<name>\\w+)-MGMT.+"
+  state_static:
+    value: present
